@@ -66,7 +66,7 @@ for name in ["Model 3", "Model 3b"]:
                     textcoords="offset points", fontsize=9, color=MUTED)
     ax.set_xlabel("Fitted value (predicted change in life expectancy)")
     ax.set_ylabel("Residual (years)")
-    ax.set_title(f"{name}: residuals vs fitted", loc="left")
+    ax.set_title("Residuals vs fitted", loc="left")
     fig.tight_layout()
     fig.savefig(f"figures/resid_{slug}_vs_fitted.png")
 
@@ -75,7 +75,7 @@ for name in ["Model 3", "Model 3b"]:
     ax.hist(df["resid"], bins=20, color=BLUE, edgecolor="white")
     ax.set_xlabel("Residual (years)")
     ax.set_ylabel("Number of countries")
-    ax.set_title(f"{name}: distribution of residuals", loc="left")
+    ax.set_title("Distribution of residuals", loc="left")
     fig.tight_layout()
     fig.savefig(f"figures/resid_{slug}_hist.png")
 
@@ -113,7 +113,7 @@ for x, other, label, slug, short, other_short in panels:
     ax.set_xlabel(label)
     r = df[x].corr(df["dLE"])
     ax.set_ylabel("Change in life expectancy (years)")
-    fig.suptitle(f"Model 3b: change in life expectancy vs {short}", x=0.01, ha="left")
+    fig.suptitle(f"Change in life expectancy vs {short}", x=0.01, ha="left")
     ax.set_title(f"slope = {m.params[x]:.3f} per unit, r = {r:.2f}, r² = {r**2:.2f}, p = {m.pvalues[x]:.3f}\n"
                  f"{other_short} held at its average; band = 95% CI",
                  loc="left", fontsize=10, color=MUTED)
@@ -135,7 +135,7 @@ ax.set_xlim(lims)
 ax.set_ylim(lims)
 ax.set_xlabel("Predicted change in life expectancy (years)")
 ax.set_ylabel("Actual change in life expectancy (years)")
-ax.set_title(f"Model 3b: actual vs predicted (R² = {m.rsquared:.3f})", loc="left")
+ax.set_title(f"Actual vs predicted (R² = {m.rsquared:.3f})", loc="left")
 ax.legend(frameon=False, loc="upper left")
 fig.tight_layout()
 fig.savefig("figures/model3b_actual_vs_predicted.png")
