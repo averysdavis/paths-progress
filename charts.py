@@ -86,20 +86,53 @@ fig.tight_layout()
 fig.savefig("figures/fig4_preston_curve.png")
 
 #figure 5: response v each predictor
-predictors = [("dGDP", "Change in GDP per capita\n(thousands of $)"),
-              ("dSchool", "Change in schooling\n(years)"),
-              ("GDP1990_k", "GDP per capita in 1990\n(thousands of $)")]
-fig, axes = plt.subplots(1, 3, figsize=(12, 4), sharey=True)
-for ax, (col, label) in zip(axes, predictors):
-    ax.scatter(df[col], df["dLE"], s=20, color=BLUE, alpha=0.8,
-               edgecolor="white", linewidth=0.6)
+predictors = [("a", "dGDP", "Change in GDP per capita, 1990–2019 (thousands of $)", "change in GDP"),
+              ("b", "dSchool", "Change in schooling, 1990–2019 (years)", "change in schooling"),
+              ("c", "GDP1990_k", "GDP per capita in 1990 (thousands of $)", "starting income")]
+for letter, col, label, short in predictors:
+    fig, ax = plt.subplots(figsize=(8, 5))
+    ax.scatter(df[col], df["dLE"], s=30, color=BLUE, alpha=0.8,
+               edgecolor="white", linewidth=0.8)
     ax.axhline(0, color=MUTED, linewidth=1)
     ax.set_xlabel(label)
+    ax.set_ylabel("Change in life expectancy, 1990–2019 (years)")
     r = df[col].corr(df["dLE"])
-    ax.set_title(f"r = {r:.2f}", loc="left", fontsize=10, color=MUTED)
-axes[0].set_ylabel("Change in life expectancy (years)")
-fig.suptitle("Figure 5. Change in life expectancy vs each predictor", x=0.01, ha="left")
-fig.tight_layout()
-fig.savefig("figures/fig5_predictors.png")
+    ax.set_title(f"Figure 5{letter}. Change in life expectancy vs {short} (r = {r:.2f})", loc="left")
+    fig.tight_layout()
+    fig.savefig(f"figures/fig5{letter}_{col}.png")
 
 print(df[["dLE", "dGDP", "dSchool", "GDP1990_k", "LE_1990"]].corr().round(2))
+
+#figure 6: trajectories by starting income (3 equal-size groups by 1990 GDP)
+df["Income group"] = pd.qcut(df["GDP1990_k"], 3, labels=["Low", "Middle", "High"])
+cutoffs = df.groupby("Income group", observed=True)["GDP1990_k"].agg(["min", "max", "count"])
+print("\nStarting income groups ($1,000s):")
+print(cutoffs.round(1))
+
+traj = le[le["Code"].isin(df.index)].merge(df[["Income group"]], left_on="Code", right_index=True)
+group_colors = {"Low": BLUE, "Middle": ORANGE, "High": AQUA}
+
+fig, ax = plt.subplots(figsize=(8, 5))
+for group, color in group_colors.items():
+    g = traj[traj["Income group"] == group]
+    # each country as a faint line
+    for code, c in g.groupby("Code"):
+        ax.plot(c["Year"], c["LE"], color=color, linewidth=0.6, alpha=0.2)
+    # group average as a bold line
+    avg = g.groupby("Year")["LE"].mean()
+    lo, hi = cutoffs.loc[group, "min"], cutoffs.loc[group, "max"]
+    ax.plot(avg.index, avg.values, color=color, linewidth=2.5,
+            label=f"{group} (\\${lo:.1f}k–\\${hi:.1f}k)")
+    ax.annotate(f"{group}: {avg.iloc[0]:.1f} → {avg.iloc[-1]:.1f}",
+                (avg.index[-1], avg.iloc[-1]), xytext=(5, 0),
+                textcoords="offset points", va="center", color=INK, fontsize=9)
+ax.set_xlim(1990, 2027)
+ax.set_xlabel("Year")
+ax.set_ylabel("Life expectancy at birth (years)")
+ax.set_title("Figure 6. Life expectancy by starting income group, 1990–2019", loc="left")
+ax.legend(frameon=False, loc="lower right", title="1990 GDP per capita", fontsize=9)
+fig.tight_layout()
+fig.savefig("figures/fig6_trajectories_by_start_income.png")
+
+print("\nGroup average life expectancy:")
+print(traj.groupby(["Income group", "Year"], observed=True)["LE"].mean().unstack().loc[:, [1990, 2000, 2010, 2019]].round(1))

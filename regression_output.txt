@@ -1,0 +1,112 @@
+===== Model 1: dLE ~ dGDP =====
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                    dLE   R-squared:                       0.046
+Model:                            OLS   Adj. R-squared:                  0.036
+Method:                 Least Squares   F-statistic:                     4.890
+Date:                Sun, 04 Oct 2026   Prob (F-statistic):             0.0292
+Time:                        15:51:29   Log-Likelihood:                -300.02
+No. Observations:                 104   AIC:                             604.0
+Df Residuals:                     102   BIC:                             609.3
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      8.7701      0.593     14.791      0.000       7.594       9.946
+dGDP          -0.0836      0.038     -2.211      0.029      -0.159      -0.009
+==============================================================================
+Omnibus:                       11.801   Durbin-Watson:                   2.036
+Prob(Omnibus):                  0.003   Jarque-Bera (JB):               16.371
+Skew:                           0.552   Prob(JB):                     0.000279
+Kurtosis:                       4.600   Cond. No.                         21.7
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+===== Model 2: dLE ~ dGDP + dSchool =====
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                    dLE   R-squared:                       0.082
+Model:                            OLS   Adj. R-squared:                  0.063
+Method:                 Least Squares   F-statistic:                     4.482
+Date:                Sun, 04 Oct 2026   Prob (F-statistic):             0.0136
+Time:                        15:51:29   Log-Likelihood:                -298.03
+No. Observations:                 104   AIC:                             602.1
+Df Residuals:                     101   BIC:                             610.0
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      6.5161      1.278      5.099      0.000       3.981       9.051
+dGDP          -0.0745      0.038     -1.985      0.050      -0.149   -3.13e-05
+dSchool        0.8543      0.431      1.983      0.050      -0.000       1.709
+==============================================================================
+Omnibus:                       13.675   Durbin-Watson:                   2.130
+Prob(Omnibus):                  0.001   Jarque-Bera (JB):               19.229
+Skew:                           0.634   Prob(JB):                     6.68e-05
+Kurtosis:                       4.681   Cond. No.                         49.9
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+===== Model 3: dLE ~ dGDP + dSchool + GDP1990_k =====
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                    dLE   R-squared:                       0.134
+Model:                            OLS   Adj. R-squared:                  0.108
+Method:                 Least Squares   F-statistic:                     5.147
+Date:                Sun, 04 Oct 2026   Prob (F-statistic):            0.00238
+Time:                        15:51:29   Log-Likelihood:                -294.99
+No. Observations:                 104   AIC:                             598.0
+Df Residuals:                     100   BIC:                             608.5
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      7.5207      1.313      5.729      0.000       4.916      10.125
+dGDP           0.0032      0.048      0.066      0.948      -0.093       0.099
+dSchool        0.6584      0.428      1.539      0.127      -0.191       1.507
+GDP1990_k     -0.0844      0.034     -2.455      0.016      -0.153      -0.016
+==============================================================================
+Omnibus:                       11.940   Durbin-Watson:                   2.242
+Prob(Omnibus):                  0.003   Jarque-Bera (JB):               19.435
+Skew:                           0.484   Prob(JB):                     6.02e-05
+Kurtosis:                       4.884   Cond. No.                         88.5
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+===== Model 3b: dLE ~ dSchool + GDP1990_k =====
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                    dLE   R-squared:                       0.134
+Model:                            OLS   Adj. R-squared:                  0.117
+Method:                 Least Squares   F-statistic:                     7.794
+Date:                Sun, 04 Oct 2026   Prob (F-statistic):           0.000711
+Time:                        15:51:29   Log-Likelihood:                -294.99
+No. Observations:                 104   AIC:                             596.0
+Df Residuals:                     101   BIC:                             603.9
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      7.5293      1.300      5.793      0.000       4.951      10.107
+dSchool        0.6593      0.426      1.549      0.124      -0.185       1.503
+GDP1990_k     -0.0829      0.026     -3.203      0.002      -0.134      -0.032
+==============================================================================
+Omnibus:                       11.825   Durbin-Watson:                   2.239
+Prob(Omnibus):                  0.003   Jarque-Bera (JB):               19.253
+Skew:                           0.478   Prob(JB):                     6.59e-05
+Kurtosis:                       4.879   Cond. No.                         75.6
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
