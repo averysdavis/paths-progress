@@ -80,7 +80,7 @@ ax.scatter(df["GDP_2019"] / 1000, df["LE_2019"], s=30, color=ORANGE, alpha=0.8,
            edgecolor="white", linewidth=0.8, label="2019")
 ax.set_xlabel("GDP per capita (thousands of 2021 int-$)")
 ax.set_ylabel("Life expectancy at birth (years)")
-ax.set_title("Life expectancy vs income: steep, then flat", loc="left")
+ax.set_title("Life expectancy vs income", loc="left")
 ax.legend(frameon=False, loc="lower right")
 fig.tight_layout()
 fig.savefig("figures/fig4_preston_curve.png")

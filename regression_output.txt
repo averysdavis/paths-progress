@@ -5,7 +5,7 @@ Dep. Variable:                    dLE   R-squared:                       0.046
 Model:                            OLS   Adj. R-squared:                  0.036
 Method:                 Least Squares   F-statistic:                     4.890
 Date:                Sun, 04 Oct 2026   Prob (F-statistic):             0.0292
-Time:                        16:00:11   Log-Likelihood:                -300.02
+Time:                        17:26:32   Log-Likelihood:                -300.02
 No. Observations:                 104   AIC:                             604.0
 Df Residuals:                     102   BIC:                             609.3
 Df Model:                           1                                         
@@ -32,7 +32,7 @@ Dep. Variable:                    dLE   R-squared:                       0.082
 Model:                            OLS   Adj. R-squared:                  0.063
 Method:                 Least Squares   F-statistic:                     4.482
 Date:                Sun, 04 Oct 2026   Prob (F-statistic):             0.0136
-Time:                        16:00:11   Log-Likelihood:                -298.03
+Time:                        17:26:32   Log-Likelihood:                -298.03
 No. Observations:                 104   AIC:                             602.1
 Df Residuals:                     101   BIC:                             610.0
 Df Model:                           2                                         
@@ -60,7 +60,7 @@ Dep. Variable:                    dLE   R-squared:                       0.134
 Model:                            OLS   Adj. R-squared:                  0.108
 Method:                 Least Squares   F-statistic:                     5.147
 Date:                Sun, 04 Oct 2026   Prob (F-statistic):            0.00238
-Time:                        16:00:11   Log-Likelihood:                -294.99
+Time:                        17:26:32   Log-Likelihood:                -294.99
 No. Observations:                 104   AIC:                             598.0
 Df Residuals:                     100   BIC:                             608.5
 Df Model:                           3                                         
@@ -89,7 +89,7 @@ Dep. Variable:                    dLE   R-squared:                       0.134
 Model:                            OLS   Adj. R-squared:                  0.117
 Method:                 Least Squares   F-statistic:                     7.794
 Date:                Sun, 04 Oct 2026   Prob (F-statistic):           0.000711
-Time:                        16:00:11   Log-Likelihood:                -294.99
+Time:                        17:26:32   Log-Likelihood:                -294.99
 No. Observations:                 104   AIC:                             596.0
 Df Residuals:                     101   BIC:                             603.9
 Df Model:                           2                                         

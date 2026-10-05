@@ -48,8 +48,8 @@ print(table.round(3).to_string())
 print("\nCorrelation between predictors:")
 print(df[["dGDP", "dSchool", "GDP1990_k"]].corr().round(2))
 
-# residuals for full model and refined model
-for name in ["Model 3", "Model 3b"]:
+# residuals for every model
+for name in models:
     m = models[name]
     df["fitted"] = m.fittedvalues
     df["resid"] = m.resid
@@ -61,8 +61,11 @@ for name in ["Model 3", "Model 3b"]:
     ax.scatter(df["fitted"], df["resid"], s=30, color=BLUE, alpha=0.8,
                edgecolor="white", linewidth=0.8)
     ax.axhline(0, color=MUTED, linewidth=1)
+    # Uganda and Niger sit close together, so push their labels apart
+    label_shift = {"Uganda": 6, "Niger": -6}
     for code, r in df.loc[df["resid"].abs().nlargest(6).index].iterrows():
-        ax.annotate(r["Entity"], (r["fitted"], r["resid"]), xytext=(5, 2),
+        ax.annotate(r["Entity"], (r["fitted"], r["resid"]),
+                    xytext=(5, 2 + label_shift.get(r["Entity"], 0)),
                     textcoords="offset points", fontsize=9, color=MUTED)
     ax.set_xlabel("Fitted value (predicted change in life expectancy)")
     ax.set_ylabel("Residual (years)")
@@ -120,22 +123,25 @@ for x, other, label, slug, short, other_short in panels:
     fig.tight_layout()
     fig.savefig(f"figures/model3b_fit_{slug}.png")
 
-# actual vs predicted: points on the diagonal = perfect prediction
-df["fitted"] = m.fittedvalues
-fig, ax = plt.subplots(figsize=(6.5, 6))
-ax.scatter(df["fitted"], df["dLE"], s=25, color=BLUE, alpha=0.8,
-           edgecolor="white", linewidth=0.6)
-lims = [df[["fitted", "dLE"]].min().min() - 1, df[["fitted", "dLE"]].max().max() + 1]
-ax.plot(lims, lims, color=ORANGE, linewidth=2, label="Perfect prediction")
-for n in ["Liberia", "Malawi", "Lesotho", "Eswatini", "China", "United States"]:
-    r = df[df["Entity"] == n].iloc[0]
-    ax.annotate(n, (r["fitted"], r["dLE"]), xytext=(5, 2),
-                textcoords="offset points", fontsize=9, color=MUTED)
-ax.set_xlim(lims)
-ax.set_ylim(lims)
-ax.set_xlabel("Predicted change in life expectancy (years)")
-ax.set_ylabel("Actual change in life expectancy (years)")
-ax.set_title(f"Actual vs predicted (R² = {m.rsquared:.3f})", loc="left")
-ax.legend(frameon=False, loc="upper left")
-fig.tight_layout()
-fig.savefig("figures/model3b_actual_vs_predicted.png")
+# actual vs predicted for every model: points on the diagonal = perfect prediction
+# same axes for every model so the charts can be compared
+lims = [-6, 26]
+for name, m in models.items():
+    slug = name.replace(" ", "").lower()
+    df["fitted"] = m.fittedvalues
+    fig, ax = plt.subplots(figsize=(6.5, 6))
+    ax.scatter(df["fitted"], df["dLE"], s=25, color=BLUE, alpha=0.8,
+               edgecolor="white", linewidth=0.6)
+    ax.plot(lims, lims, color=ORANGE, linewidth=2, label="Perfect prediction")
+    for n in ["Liberia", "Malawi", "Lesotho", "Eswatini", "China", "United States"]:
+        r = df[df["Entity"] == n].iloc[0]
+        ax.annotate(n, (r["fitted"], r["dLE"]), xytext=(5, 2),
+                    textcoords="offset points", fontsize=9, color=MUTED)
+    ax.set_xlim(lims)
+    ax.set_ylim(lims)
+    ax.set_xlabel("Predicted change in life expectancy (years)")
+    ax.set_ylabel("Actual change in life expectancy (years)")
+    ax.set_title(f"Actual vs predicted (R² = {m.rsquared:.3f})", loc="left")
+    ax.legend(frameon=False, loc="upper left")
+    fig.tight_layout()
+    fig.savefig(f"figures/{slug}_actual_vs_predicted.png")
